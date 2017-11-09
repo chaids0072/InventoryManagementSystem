@@ -8,3 +8,4 @@ C:\Users\User\Source\Repos\InventoryManagementSystem\InventoryManagementSystem\o
 C:\Users\User\Source\Repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\InventoryManagementSystem.pdb
 C:\Users\User\Source\Repos\InventoryManagementSystem\InventoryManagementSystem\bin\Debug\InventoryManagementSystem.exe.config
 C:\Users\User\Source\Repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\InventoryManagementSystem.MainWindow.resources
+C:\Users\User\Source\Repos\InventoryManagementSystem\InventoryManagementSystem\obj\Debug\InventoryManagementSystem.Registration.resources

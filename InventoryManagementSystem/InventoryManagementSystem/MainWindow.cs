@@ -21,7 +21,8 @@ namespace InventoryManagementSystem
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            Registration otherForm = new Registration();
+            otherForm.Show();
         }
 
         private void MainWindow_MouseDown(object sender, MouseEventArgs e)
@@ -42,6 +43,16 @@ namespace InventoryManagementSystem
                 System.Drawing.Point P = PointToScreen(e.Location);
                 Location = new System.Drawing.Point(P.X - _start_point.X, P.Y - _start_point.Y);
             }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

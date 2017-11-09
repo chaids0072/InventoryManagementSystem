@@ -111,5 +111,26 @@ namespace InventoryManagementSystem
             _mouseDown = true;
             _start_point = new System.Drawing.Point(e.X, e.Y);
         }
+
+        private void passwordTextBox_Enter(object sender, EventArgs e)
+        {
+            if (passwordTextBox.Text == "Password")
+            {
+                passwordTextBox.Text = "";
+                passwordTextBox.PasswordChar = '*';
+            }
+        }
+
+        private void passwordTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Return:
+                    button1.PerformClick();
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
