@@ -51,20 +51,93 @@ namespace InventoryManagementSystem
             dataGridView1.DataSource = GetUserList();
         }
 
-        private DataTable GetUserList() {
+        private DataTable GetUserList()
+        {
             DataTable dtUser = new DataTable();
 
             string connString = ConfigurationManager.ConnectionStrings["ims_userDB"].ConnectionString;
 
-            using (SqlConnection con = new SqlConnection(connString)) {
-                using (SqlCommand cmd = new SqlCommand("select * from [ims_user].[dbo].[iUM]", con)) {
+            using (SqlConnection con = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand("select * from [ims_user].[dbo].[iUM]", con))
+                {
                     con.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
                     dtUser.Load(reader);
+                    con.Close();
                 }
             }
 
-                return dtUser;
+            return dtUser;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string connString = ConfigurationManager.ConnectionStrings["ims_userDB"].ConnectionString;
+
+
+            if (textBox1.Text == "" || textBox2.Text == "")
+            {
+                MessageBox.Show("Please check the details again.");
+            }
+            else if (textBox2.Text != textBox3.Text)
+            {
+                MessageBox.Show("Passwords don't match.");
+            }
+            else
+            {
+                using (SqlConnection con = new SqlConnection(connString))
+                {
+                    con.Open();
+                    SqlCommand sqlCmd = new SqlCommand("UserAdd", con);
+                    sqlCmd.CommandType = CommandType.StoredProcedure;
+                    sqlCmd.Parameters.AddWithValue("@Username", textBox1.Text.Trim());
+                    sqlCmd.Parameters.AddWithValue("@Password", textBox2.Text.Trim());
+                    sqlCmd.ExecuteNonQuery();
+                    MessageBox.Show("User has been created successfully.");
+                    clear();
+                    con.Close();
+                }
+                dataGridView1.DataSource = GetUserList();
+            }
+        }
+
+        void clear() {
+            textBox1.Text = textBox2.Text = textBox3.Text =  "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            clear();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.Rows.Count > 2)
+            {
+                DataGridViewRow row = dataGridView1.CurrentRow;
+                string selectedUsr = row.Cells["Username"].Value.ToString();
+                string selectedPwd = row.Cells["Password"].Value.ToString();
+
+                string connString = ConfigurationManager.ConnectionStrings["ims_userDB"].ConnectionString;
+
+                using (SqlConnection con = new SqlConnection(connString))
+                {
+                    using (SqlCommand cmd = new SqlCommand("delete from [ims_user].[dbo].[iUM] where Username = '" + selectedUsr + "' and Password = '" + selectedPwd + "'", con))
+                    {
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                }
+
+                int rowIndex = dataGridView1.CurrentCell.RowIndex;
+                dataGridView1.Rows.RemoveAt(rowIndex);
+            }
+            else
+            {
+                MessageBox.Show("One user must be left.");
+            }
         }
     }
 }

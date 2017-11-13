@@ -83,6 +83,8 @@ namespace InventoryManagementSystem
                     otherForm.Show();
                 } else {
                     MessageBox.Show("Incorrect combination");
+                    userTextBox.Text = "";
+                    passwordTextBox.Text = "";
                 }
             }
             finally
